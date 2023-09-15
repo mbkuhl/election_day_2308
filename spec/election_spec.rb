@@ -69,10 +69,11 @@ RSpec.describe Election do
       5.times { @candidate2.vote_for! }
       10.times { @candidate3.vote_for! }
       5.times { @candidate4.vote_for! }
-      @race1.close!
-      expect(election.winners).to eq([candidate1])
+      @race.close!
+      expect(@election.winners).to eq([@candidate1])
       @race2.close!
-      expect(election.winners).to eq([candidate1, candidate3])
+      expect(@election.winners).to eq([@candidate1, @candidate3])
     end
+  end
 end
       

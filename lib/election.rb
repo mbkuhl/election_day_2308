@@ -20,4 +20,12 @@ class Election
     end
     votes_hash
   end
+
+  def winners
+    winners = []
+    races.each do |race|
+      (winners << race.winner) if !race.open?
+    end
+    winners
+  end
 end
