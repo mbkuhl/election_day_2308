@@ -22,4 +22,47 @@ RSpec.describe Race do
       expect(@race.candidates).to eq([candidate1, candidate2])
     end
   end
+
+  describe '#open? and #close!' do
+    it 'can tell if a race is still open' do
+      expect(@race.open?).to be true
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      expect(@race.open?).to be true
+    end
+
+    it 'can close a race' do
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      @race.close!
+      expect(@race.open?).to be false
+    end
+  end
+
+  describe '#winner and #tie?' do
+    it 'can show the winner of a race or false if open' do
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate1.vote_for!
+      expect(@race.winner).to be false
+      @race.close!
+      expect(@race.winner).to eq(candidate1)
+    end
+
+    it 'can show if there was a tie' do
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate1.vote_for!
+      candidate2.vote_for!
+      @race.close!
+      expect(@race.tie?).to be true
+    end
+
+    it 'can show if there was not a tie' do
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate1.vote_for!
+      @race.close!
+      expect(@race.tie?).to be false
+    end
 end
