@@ -65,4 +65,5 @@ RSpec.describe Race do
       @race.close!
       expect(@race.tie?).to be false
     end
+  end
 end
