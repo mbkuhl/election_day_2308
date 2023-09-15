@@ -17,10 +17,11 @@ RSpec.describe Candidate do
   describe '#vote_for!' do
     it 'can be voted for' do
       3.times do
-        diana.vote_for!
+        @diana.vote_for!
       end
-      expect(diana.votes).to eq(3)
-      diana.vote_for!
-      expect(diana.votes).to eq(4)
+      expect(@diana.votes).to eq(3)
+      @diana.vote_for!
+      expect(@diana.votes).to eq(4)
     end
   end
+end
