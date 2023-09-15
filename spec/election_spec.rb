@@ -57,5 +57,22 @@ RSpec.describe Election do
       expect(@election.vote_counts).to eq({"Diana D" => 20, "Roberto R" => 10, "BB" => 10, "CC" => 5})
     end
   end
+
+  describe '#winners' do
+    it 'can etermine the winners of all races' do
+      @election.add_race(@race)
+      expect(@election.races).to eq([@race])
+      10.times { @candidate1.vote_for! }
+      5.times { @candidate2.vote_for! }
+      @election.add_race(@race2)
+      10.times { @candidate1.vote_for! }
+      5.times { @candidate2.vote_for! }
+      10.times { @candidate3.vote_for! }
+      5.times { @candidate4.vote_for! }
+      @race1.close!
+      expect(election.winners).to eq([candidate1])
+      @race2.close!
+      expect(election.winners).to eq([candidate1, candidate3])
+    end
 end
       
